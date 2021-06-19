@@ -21,7 +21,22 @@ def roll_dice(num_rolls, dice=six_sided):
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    score_turn, num_dice = 0, 0
+    hit_one = False
+    while num_dice < num_rolls:
+        dice_val = dice()
+        # Implement Special Rule 1. Pig Out.
+        if dice_val == 1:
+            hit_one = True
+        else:
+            score_turn = score_turn + dice_val 
+        num_dice += 1
+    # Can I escape from the burden of calling dice 9 times, if the first call to dice returns a 1?
+    # How does roll_dice keep a track of how many dice have been rolled in the previous turn, when using make_test_dice?
+    if hit_one:
+        return 1
+    else:
+        return score_turn
     # END PROBLEM 1
 
 
@@ -32,7 +47,18 @@ def free_bacon(score):
     """
     assert score < 100, 'The game should be over.'
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    # Convert score into strings and break-up into constituent digits [tens, units]
+    scoretxt = str(score)
+    size_scoretxt = len(scoretxt)
+    scoretxt_tens, scoretxt_units = 0, 0
+    if size_scoretxt > 1:
+        scoretxt_tens, scoretxt_units = int(scoretxt[0]), int(scoretxt[1])
+    else:
+        scoretxt_units = int(scoretxt[0])
+    # Implement Special Rule 2. Free Bacon
+    subval = min(scoretxt_tens, scoretxt_units)
+    score_turn = 10 - subval
+    return score_turn
     # END PROBLEM 2
 
 
@@ -50,7 +76,12 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    player_score_turn = 0
+    if num_rolls == 0:
+        player_score_turn = free_bacon(opponent_score) 
+    else:
+        player_score_turn = roll_dice(num_rolls, dice) 
+    return player_score_turn 
     # END PROBLEM 3
 
 
