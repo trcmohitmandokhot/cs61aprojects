@@ -90,7 +90,28 @@ def is_swap(player_score, opponent_score):
     Return whether the two scores should be swapped
     """
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    # Define a common multiplier function to evaluate player and opponent comparision values
+    def calcmul(input_score):
+        scoretxt = str(input_score)
+        size_scoretxt = len(scoretxt)
+        mul = 1
+        if size_scoretxt == 1:
+            mul = input_score*input_score
+        else:
+            mul = int(scoretxt[0])*int(scoretxt[-1])
+        return mul
+    is_swine = False
+    
+    mul_player = calcmul(player_score)
+    #print("mul1: ", mul_player)
+    mul_opponent = calcmul(opponent_score)
+    #print("mul2: ", mul_opponent)
+    if mul_player == mul_opponent:
+        is_swine = True
+    else:
+        pass
+
+    return is_swine
     # END PROBLEM 4
 
 
