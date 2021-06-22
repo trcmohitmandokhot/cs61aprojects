@@ -110,7 +110,6 @@ def is_swap(player_score, opponent_score):
         is_swine = True
     else:
         pass
-
     return is_swine
     # END PROBLEM 4
 
@@ -149,13 +148,57 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     say:        The commentary function to call at the end of the first turn.
     feral_hogs: A boolean indicating whether the feral hogs rule should be active.
     """
-    player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    # Functions available for use:
+        # is_swap(score0, score1) -> return score based on scores obtained by players taking turns.
+        # take_turn (rolls,oppo_score,dice) -> return score
+            # free_bacon () -> returns score for current player, based on opposition score 
+            # roll_dice() -> returns sum of dice rolls
+    # First player 0 takes a turn.
+        # take_turn -> num_rolls informed from strategy0, dice is decided, oppo_score is passed. This returns turn score.
+    # Then turn is switched by calling other()
+    # Then player 1 takes a turn.
+        # repeat take_turn based on strategy1.
+    # Scores from player 0 and player 1 are returned and is_swap is used to determine final scores for the play.
+    
+    player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
+    prevturn_p0, prevturn_p1 = 0, 0
+    while score0 < goal and score1 < goal:
+        if player == 0:
+            score_self, score_other = score0, score1
+            num_rolls = strategy0(score_self,score_other)
+        else:
+            score_self, score_other = score1, score0
+            num_rolls = strategy1(score_self,score_other)
+
+        score_self= take_turn(num_rolls,score_other,dice)
+        
+        # Check and implement Feral Hogs rule
+        if player == 0:
+            if feral_hogs and abs(num_rolls - prevturn_p0) == 2:
+                score0 = score0 + score_self + 3
+            else:
+                score0 = score0 + score_self
+            prevturn_p0 = num_rolls
+        else:
+            if feral_hogs and abs(num_rolls - prevturn_p1) == 2:
+                score1 = score1 + score_self + 3
+            else:
+                score1 = score1 + score_self
+            prevturn_p1 = num_rolls
+        # Check and implement is_swap rule
+        if is_swap(score0,score1):
+            temp = score0
+            score0, score1 = score1, temp
+        else:
+            pass
+                
+        player = other(player)    
     # END PROBLEM 5
-    # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
+    
     # BEGIN PROBLEM 6
-    "*** YOUR CODE HERE ***"
+    
+
     # END PROBLEM 6
     return score0, score1
 
