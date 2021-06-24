@@ -192,14 +192,15 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
             score0, score1 = score1, temp
         else:
             pass
-                
-        player = other(player)    
-    # END PROBLEM 5
+        # END PROBLEM 5
     
-    # BEGIN PROBLEM 6
-    
+        # BEGIN PROBLEM 6
+        # Call say_scores function at the end of first turn
+        # Call function returned by say_scores at the end of next turn
+        say = say(score0, score1)
+        # END PROBLEM 6
 
-    # END PROBLEM 6
+        player = other(player)    
     return score0, score1
 
 
@@ -262,7 +263,7 @@ def both(f, g):
 def announce_highest(who, previous_high=0, previous_score=0):
     """Return a commentary function that announces when WHO's score
     increases by more than ever before in the game.
-
+    
     NOTE: the following game is not possible under the rules, it's just
     an example for the sake of the doctest
 
@@ -283,10 +284,28 @@ def announce_highest(who, previous_high=0, previous_score=0):
     55 point(s)! That's the biggest gain yet for Player 1
     """
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
-    # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    def say(score0,score1):
+        temp_high = previous_high
+        temp_score = previous_score
+        if who == 0:
+            delta = score0 - temp_score
+            if delta > temp_high:
+                print("%d point(s)! That's the biggest gain yet for Player 0"% delta)
+                temp_high = delta
+            else:
+                pass
+            temp_score = score0
+        else:
+            delta = score1 - temp_score
+            if delta > temp_high:
+                print("%d point(s)! That's the biggest gain yet for Player 1"% delta)
+                temp_high = delta
+            else:
+                pass
+            temp_score = score1
+        return announce_highest(who,temp_high,temp_score)
+    return say
     # END PROBLEM 7
-
 
 #######################
 # Phase 3: Strategies #
