@@ -356,6 +356,14 @@ def make_averaged(fn, num_samples=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    def average_val(*args):
+        total, i = 0, 0
+        while i < num_samples:
+            total = total + fn(*args)
+            i+=1
+        result = total/num_samples
+        return result
+    return average_val
     # END PROBLEM 8
 
 
@@ -369,7 +377,21 @@ def max_scoring_num_rolls(dice=six_sided, num_samples=1000):
     1
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    # make_averaged(fn, num_samples) - Returns a function that returns the average value of repeatedly calling fn on same args
+    # roll_dice(num_rolls,dice) - Return the value of sum of dice rolled num_rolls times
+    desired_rolls, max_rolls, num_rolls = 1, 10, 1
+    max_averagedval = 0.0
+    while num_rolls <= max_rolls:
+        calc_avgvalfn = make_averaged(roll_dice,num_samples)
+        calc_avgval = calc_avgvalfn(num_rolls,dice)
+        if calc_avgval > max_averagedval:
+            max_averagedval = calc_avgval
+            desired_rolls = num_rolls
+            # print(calc_avgval,max_averagedval,desired_rolls)
+        else:
+            pass
+        num_rolls += 1
+    return desired_rolls
     # END PROBLEM 9
 
 
