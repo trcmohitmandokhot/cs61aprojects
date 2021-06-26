@@ -287,22 +287,35 @@ def announce_highest(who, previous_high=0, previous_score=0):
     def say(score0,score1):
         temp_high = previous_high
         temp_score = previous_score
+        # if who == 0:
+        #     delta = score0 - temp_score
+        #     if delta > temp_high:
+        #         print("%d point(s)! That's the biggest gain yet for Player 0"% delta)
+        #         temp_high = delta
+        #     else:
+        #         pass
+        #     temp_score = score0
+        # else:
+        #     delta = score1 - temp_score
+        #     if delta > temp_high:
+        #         print("%d point(s)! That's the biggest gain yet for Player 1"% delta)
+        #         temp_high = delta
+        #     else:
+        #         pass
+        #     temp_score = score1
+        # return announce_highest(who,temp_high,temp_score)
+        def calcgain(who,score_now,score_old,high):
+            delta = score_now - score_old
+            if delta > high:
+                print("%d point(s)! That's the biggest gain yet for Player %d" % (delta,who))
+                high = delta
+            else:
+                pass
+            return score_now, high
         if who == 0:
-            delta = score0 - temp_score
-            if delta > temp_high:
-                print("%d point(s)! That's the biggest gain yet for Player 0"% delta)
-                temp_high = delta
-            else:
-                pass
-            temp_score = score0
+            temp_score, temp_high = calcgain(who, score0, temp_score, temp_high)
         else:
-            delta = score1 - temp_score
-            if delta > temp_high:
-                print("%d point(s)! That's the biggest gain yet for Player 1"% delta)
-                temp_high = delta
-            else:
-                pass
-            temp_score = score1
+            temp_score, temp_high = calcgain(who, score1, temp_score, temp_high)
         return announce_highest(who,temp_high,temp_score)
     return say
     # END PROBLEM 7
