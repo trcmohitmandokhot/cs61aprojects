@@ -38,3 +38,9 @@ This is also very powerful.
 1) Functions can be used as arguments to another function. Functions can be returned as outputs from a function.
 2) Higher-order function is one that does item 1
 3) Such functions allow us to narrow down each function to do 1 thing. Remove repetition. 
+
+### Completed Hog.py Project 1
+- Higher order functions need more practices
+	- More specifically I need to use the tutor to make them work
+	- Passing functions, Returning Functions, Using (*args) tricky.
+- Requirements parsing in English and conversion into code logic needs more practice

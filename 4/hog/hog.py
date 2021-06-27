@@ -459,7 +459,26 @@ def swap_strategy(score, opponent_score, margin=8, num_rolls=4):
     non-beneficial swap. Otherwise, it rolls NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 4  # Replace this statement
+    def is_beneficial(score0,score1):
+        if score0 < score1:
+            return True
+        else:
+            return False
+    
+    old_score = score
+    pred_score = score + free_bacon(opponent_score)
+    #print("New score: ", pred_score)
+    if is_swap(pred_score,opponent_score) and is_beneficial(pred_score,opponent_score):
+        play_rolls = 0
+        #print("Here1")
+    elif (free_bacon(opponent_score)>=margin) and ((pred_score==opponent_score)or(is_beneficial(pred_score,opponent_score))): 
+        play_rolls = 0
+        #print("Here2")
+    else:
+        play_rolls = num_rolls
+        #print("Here3")
+    return play_rolls  # Replace this statement
+    # It looks like the "OK" tests for Q11 are inconsistent. Skipping this for now. 
     # END PROBLEM 11
 
 
