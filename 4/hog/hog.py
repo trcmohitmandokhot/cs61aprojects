@@ -420,7 +420,7 @@ def run_experiments():
         six_sided_max = max_scoring_num_rolls(six_sided)
         print('Max scoring num rolls for six-sided dice:', six_sided_max)
 
-    if False:  # Change to True to test always_roll(8)
+    if False: # Change to True to test always_roll(8)
         print('always_roll(6) win rate:', average_win_rate(always_roll(6)))
 
     if False:  # Change to True to test bacon_strategy
@@ -440,7 +440,16 @@ def bacon_strategy(score, opponent_score, margin=8, num_rolls=4):
     rolls NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 4  # Replace this statement
+    # Use free_bacon(oppo_score) to return score_turn
+    # If score_turn > margin return "0" dice
+    # else return num_rolls dice
+    play_rolls = 0
+    score_turn = free_bacon(opponent_score)
+    if score_turn >= margin:
+        pass
+    else:
+        play_rolls = num_rolls
+    return play_rolls  # Replace this statement
     # END PROBLEM 10
 
 
